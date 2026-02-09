@@ -166,7 +166,7 @@
   - AppearanceVox
   - BaseSpeciesMobOrganicUnperishable # Trauma - vox don't rot
   id: MobVox
-  name: Uristititi McVox
+  name: Urist McVox
   components:
   # <Trauma>
   - type: Uncloneable
