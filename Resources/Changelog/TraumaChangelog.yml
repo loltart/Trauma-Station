@@ -3107,3 +3107,10 @@ Entries:
   id: 375
   time: '2026-02-26T15:41:43.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/882
+- author: JohnJJohn
+  changes:
+  - type: Tweak
+    message: Facehuggers no longer need to be player controlled to hug
+  id: 376
+  time: '2026-02-26T20:13:27.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/884
