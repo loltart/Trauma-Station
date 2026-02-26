@@ -3121,3 +3121,12 @@ Entries:
   id: 377
   time: '2026-02-26T20:30:08.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/874
+- author: JohnJJohn
+  changes:
+  - type: Add
+    message: >-
+      Added Bullet hole decals, whenever a kenetic bullet hits a wall they'll be
+      created.
+  id: 378
+  time: '2026-02-26T22:22:07.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/873
