@@ -3130,3 +3130,10 @@ Entries:
   id: 378
   time: '2026-02-26T22:22:07.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/873
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: Fixed xenomorph acid and plasma transfer actions not working.
+  id: 379
+  time: '2026-02-27T00:33:32.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/886
