@@ -3219,3 +3219,10 @@ Entries:
   id: 389
   time: '2026-02-28T21:39:19.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/921
+- author: deltanedas
+  changes:
+  - type: Tweak
+    message: You can now use hyposprays on people who are downed (bed or on the floor)
+  id: 390
+  time: '2026-02-28T22:59:41.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/922
