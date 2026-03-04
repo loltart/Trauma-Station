@@ -3536,3 +3536,12 @@ Entries:
   id: 418
   time: '2026-03-04T08:46:25.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/990
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: >-
+      Fixed not being able to eject materials from lathes which don't have
+      recipes using them.
+  id: 419
+  time: '2026-03-04T08:51:25.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/992
