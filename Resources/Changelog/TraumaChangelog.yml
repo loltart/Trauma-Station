@@ -3811,3 +3811,14 @@ Entries:
   id: 449
   time: '2026-03-07T15:42:29.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1096
+- author: deltanedas
+  changes:
+  - type: Tweak
+    message: >-
+      When editing skills it will disable the increase button instead of saying
+      the cost is 999.
+  - type: Tweak
+    message: Increased martial arts cost to 50 so you can't get much else.
+  id: 450
+  time: '2026-03-07T16:02:32.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1097
