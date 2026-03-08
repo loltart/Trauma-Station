@@ -1,19 +1,19 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Content.Server.Chat.Managers;
 using Content.Shared.Chat;
 using Content.Shared.Weather;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
-namespace Content.Server._DV.Weather;
+namespace Content.Trauma.Server.Weather;
 
 public sealed class WeatherSchedulerSystem : EntitySystem
 {
     [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedWeatherSystem _weather = default!;
 
@@ -32,19 +32,18 @@ public sealed class WeatherSchedulerSystem : EntitySystem
                 comp.Stage = 0;
 
             var stage = comp.Stages[comp.Stage++];
-            var duration = stage.Duration.Next(_random);
-            comp.NextUpdate = now + TimeSpan.FromSeconds(duration);
+            var duration = TimeSpan.FromSeconds(stage.Duration.Next(_random));
+            comp.NextUpdate = now + duration;
 
             var mapId = Comp<MapComponent>(map).MapId;
             if (stage.Weather is {} weather)
             {
-                var ending = comp.NextUpdate;
-                // crossfade weather so as one ends the next starts
+                // crossfade weather smoothly so as one ends the next starts
                 if (HasWeather(comp, comp.Stage - 1))
-                    ending += WeatherComponent.ShutdownTime;
+                    duration += SharedWeatherSystem.StartupTime;
                 if (HasWeather(comp, comp.Stage + 1))
-                    ending += WeatherComponent.StartupTime;
-                _weather.SetWeather(mapId, _proto.Index(weather), ending);
+                    duration += SharedWeatherSystem.ShutdownTime;
+                _weather.TryAddWeather(map, weather, out _, duration);
             }
 
             if (stage.Message is {} message)

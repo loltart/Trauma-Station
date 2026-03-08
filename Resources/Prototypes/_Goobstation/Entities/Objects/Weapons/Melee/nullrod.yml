@@ -373,6 +373,8 @@
   description: An absolutely enormous two handed shield, very difficult to use if not planted in place.
   components:
   - type: Nullrod
+    damageOnUntrainedUse:
+      types: {}
     staminaOnUntrainedUse: 200
     UntrainedUseString: nullrod-bulwark-untrained-usage-popup
   - type: MeleeWeapon

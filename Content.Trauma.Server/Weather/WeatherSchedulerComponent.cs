@@ -1,9 +1,10 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Content.Shared.Destructible.Thresholds;
-using Content.Shared.Weather;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Server._DV.Weather;
+namespace Content.Trauma.Server.Weather;
 
 /// <summary>
 /// Makes weather randomly happen every so often.
@@ -44,10 +45,10 @@ public partial struct WeatherStage
     public MinMax Duration = new(0, 0);
 
     /// <summary>
-    /// The weather prototype to add, or null for clear weather.
+    /// The weather status effect prototype to add, or null for clear weather.
     /// </summary>
     [DataField]
-    public ProtoId<WeatherPrototype>? Weather;
+    public EntProtoId? Weather;
 
     /// <summary>
     /// Alert message to send in chat for players on the map when it starts.

@@ -64,7 +64,7 @@ public sealed class SlasherSoulStealSystem : EntitySystem
     [Dependency] private readonly SharedPoweredLightSystem _light = default!;
     [Dependency] private readonly SlasherRegenerateSystem _regenerate = default!;
 
-    public static readonly ProtoId<WeatherPrototype> Storm = "Storm";
+    public static readonly EntProtoId Storm = "WeatherStorm";
 
     public override void Initialize()
     {
@@ -238,8 +238,8 @@ public sealed class SlasherSoulStealSystem : EntitySystem
                 _alertLevel.SetLevel(station.Value, "red", true, true, true, false);
 
                 // Make it rain in space
-                var xform = Transform(user);
-                _weather.SetWeather(xform.MapID, _protoMan.Index(Storm), null);
+                if (Transform(user).MapUid is {} map)
+                    _weather.TryAddWeather(map, Storm, out _);
 
                 // Make station announcement from Central Command
                 _chatSystem.DispatchStationAnnouncement(
