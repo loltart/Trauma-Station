@@ -3858,3 +3858,20 @@ Entries:
   id: 454
   time: '2026-03-08T09:03:02.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1101
+- author: Aviu
+  changes:
+  - type: Add
+    message: Added tackle mechanic to the game.
+  - type: Add
+    message: Sec gloves can now let you perform tackle.
+  - type: Add
+    message: HoS gets gorilla tackle gloves in loadout.
+  - type: Add
+    message: Syndis get guerrilla gloves in uplink.
+  - type: Add
+    message: 2 types of tackle gloves in maints loot.
+  - type: Add
+    message: 'Sci can research dolphin gloves. '
+  id: 455
+  time: '2026-03-08T12:02:15.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/961
