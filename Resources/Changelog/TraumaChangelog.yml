@@ -4136,3 +4136,12 @@ Entries:
   id: 487
   time: '2026-03-10T12:43:11.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1154
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: >-
+      Fixed chefs being able to use Close Quarters Combat from their characters
+      skills.
+  id: 488
+  time: '2026-03-10T20:26:33.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1188
