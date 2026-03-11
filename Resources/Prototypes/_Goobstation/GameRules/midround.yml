@@ -186,9 +186,8 @@
     maxOccurrences: 2
   - type: VentCrittersRule
     max: 1
-    table: !type:GroupSelector
-      children:
-      - id: MobFloorGoblin
+    entries:
+    - id: MobFloorGoblin
 
 # Midround Devil
 - type: entity
@@ -482,8 +481,8 @@
     maxOccurrences: 2
   - type: VentCrittersRule
     max: 1
-    table:
-      id: MobClownGoblin
+    entries:
+    - id: MobClownGoblin
 
 # Slasher
 - type: entity

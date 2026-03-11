@@ -19,6 +19,7 @@
     - id: SnailMigrationLowPop
     - id: CockroachMigration
     - id: MouseMigration
+    - id: RandomCritterHorde
 
 - type: entityTable
   id: SpicyPestEventsTable
@@ -34,9 +35,6 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    startAnnouncement: station-event-vent-creatures-start-announcement
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
     earliestStart: 15
     weight: 6
     duration: 30 # DeltaV: was 50, used as a delay now
@@ -53,22 +51,24 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    startAnnouncement: station-event-vent-creatures-start-announcement
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
     earliestStart: 15
     weight: 6
     duration: 30 # DeltaV: was 50, used as a delay now
     minimumPlayers: 30 # Hopefully this is enough for the Rat King's potential Army (it was not, raised from 15 -> 30)
-  - type: VentCrittersRule
-    table: !type:GroupSelector # DeltaV: EntityTable instead of spawn entries
-      children:
-      # Goobstation
-      - id: SpawnMobMouse
-      - id: MobMouseCancer
-        weight: 0.02
-      - id: MobLootbug # Goobstation
-        weight: 0.08
+  - type: VentCrittersRule # We don't use Horde here to make RK spawns less predictable.
+    entries:
+    # <Trauma>
+    - id: MobLootbug
+      prob: 0.008
+    # </Trauma>
+    - id: MobMouse
+      prob: 0.02
+    - id: MobMouse1
+      prob: 0.02
+    - id: MobMouse2
+      prob: 0.02
+    - id: MobMouseCancer
+      prob: 0.001
     specialEntries:
     - id: SpawnPointGhostRatKing
       prob: 0.001
@@ -78,9 +78,6 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    startAnnouncement: station-event-vent-creatures-start-announcement
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
     weight: 6
     duration: 30 # DeltaV: was 50, used as a delay now
   - type: VentCrittersRule
@@ -100,9 +97,6 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    startAnnouncement: station-event-vent-creatures-start-announcement
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
     weight: 6
     duration: 30 # DeltaV: was 50, used as a delay now
   - type: VentCrittersRule
@@ -117,22 +111,51 @@
   parent: BaseStationEventShortDelay
   components:
   - type: StationEvent
-    startAnnouncement: station-event-vent-creatures-start-announcement
-    startAudio:
-      path: /Audio/Announcements/attention.ogg
     earliestStart: 15
     weight: 6
     duration: 30 # DeltaV: was 50, used as a delay now
     minimumPlayers: 30
   - type: VentCrittersRule
-    table: !type:GroupSelector # DeltaV: EntityTable instead of spawn entries
+    entries:
+    - id: MobSnail
+      prob: 0.02
+    - id: MobSnailSpeed
+      prob: 0.002
+    - id: MobSnailMoth
+      prob: 0.002
+    - id: MobSnailInstantDeath
+      prob: 0.00004 # Trauma - 4x
+
+- type: entity
+  parent: BaseStationEventShortDelay
+  id: RandomCritterHorde # My deepest apologies, Mr. Secoff. You just wasted your time :)
+  components:
+  - type: StationEvent
+    startAnnouncement: station-event-vent-creatures-start-horde-announcement
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
+    earliestStart: 15
+    weight: 6 # Slightly more common than other hordes
+    duration: 5
+    maxDuration: 20
+    reoccurrenceDelay: 15 # Shorter because this event is basically a nat zero on the round. It only exists to potentially confuse security or the crew
+  - type: VentHordeRule
+    table: !type:GroupSelector
+      rolls: 3,5
       children:
-      - id: MobSnail
-        weight: 0.84
-      - id: MobSnailSpeed
-        weight: 0.08
-      - id: MobSnailMoth
-        weight: 0.08
-      # Goobstation
-      - id: MobSnailInstantDeath
-        weight: 0.0004
+      - !type:GroupSelector
+        children: # Increased chances for special snails on purpose. Makes it a bit more interesting.
+        - id: MobSnail
+        - id: MobSnailSpeed
+        - id: MobSnailMoth
+      - !type:GroupSelector
+        children: # Increased chances for special roaches on purpose. Makes it a bit more interesting.
+        - id: MobCockroach
+        - id: MobMothroach
+        - id: MobMoproach
+          weight: 0.5
+      - !type:GroupSelector
+        children:
+        - id: MobMouse
+        - id: MobMouse1
+        - id: MobMouse2
