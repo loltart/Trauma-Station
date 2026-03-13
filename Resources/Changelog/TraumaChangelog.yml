@@ -4328,3 +4328,10 @@ Entries:
   id: 508
   time: '2026-03-13T20:07:43.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1249
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: Fixed xeno acid action not using any plasma.
+  id: 509
+  time: '2026-03-13T22:12:04.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1262
