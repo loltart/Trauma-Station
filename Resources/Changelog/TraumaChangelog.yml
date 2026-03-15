@@ -4514,3 +4514,10 @@ Entries:
   id: 530
   time: '2026-03-15T07:27:39.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1315
+- author: GeneRickUsername
+  changes:
+  - type: Tweak
+    message: Buffed construction experience gaining.
+  id: 531
+  time: '2026-03-15T09:11:52.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1319
