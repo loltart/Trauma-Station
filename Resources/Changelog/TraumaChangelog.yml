@@ -4645,3 +4645,16 @@ Entries:
   id: 545
   time: '2026-03-16T10:38:49.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1348
+- author: deltanedas
+  changes:
+  - type: Add
+    message: >-
+      Mutations now have a rarity letter shown roughly indicating how difficult
+      it is to sequence. Mutations can be Common, Rare or Mythical.
+  - type: Tweak
+    message: >-
+      Changed genetics console sequence fail damage to be a mix of cellular and
+      radiation.
+  id: 546
+  time: '2026-03-16T11:34:13.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1352
