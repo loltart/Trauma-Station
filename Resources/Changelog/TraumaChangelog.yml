@@ -4700,3 +4700,10 @@ Entries:
   id: 552
   time: '2026-03-16T20:35:05.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1369
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: Fixed energy shields not working.
+  id: 553
+  time: '2026-03-16T22:46:58.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1370
