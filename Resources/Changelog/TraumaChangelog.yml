@@ -4758,3 +4758,10 @@ Entries:
   id: 558
   time: '2026-03-17T15:46:55.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1225
+- author: assripper.
+  changes:
+  - type: Add
+    message: roundstart abductors are back
+  id: 559
+  time: '2026-03-17T20:52:47.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1390
