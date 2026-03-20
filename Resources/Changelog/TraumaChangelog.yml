@@ -5055,3 +5055,12 @@ Entries:
   id: 594
   time: '2026-03-20T20:01:43.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1484
+- author: assripper.
+  changes:
+  - type: Add
+    message: >-
+      midround xenos have returned but now it only spawns ONE larva (so play it
+      stealthy)
+  id: 595
+  time: '2026-03-20T20:43:47.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1385
