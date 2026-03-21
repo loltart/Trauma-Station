@@ -5150,3 +5150,10 @@ Entries:
   id: 605
   time: '2026-03-21T20:17:30.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1483
+- author: GeneRickUsername
+  changes:
+  - type: Add
+    message: Added guidebook for skills.
+  id: 606
+  time: '2026-03-21T23:40:49.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1506
