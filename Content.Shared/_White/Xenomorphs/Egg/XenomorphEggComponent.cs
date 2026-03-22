@@ -11,6 +11,9 @@ public sealed partial class XenomorphEggComponent : Component
     public EntProtoId? FaceHuggerPrototype = "MobXenomorphFaceHugger";
 
     [DataField]
+    public EntProtoId? SentientFaceHuggerPrototype = "MobXenomorphFaceHuggerSentient";
+
+    [DataField]
     public float BurstRange = 1f;
 
     [DataField]

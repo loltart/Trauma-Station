@@ -34,4 +34,6 @@ public sealed partial class XenomorphInfectionComponent : SharedXenomorphInfecti
     [ViewVariables]
     public EntityUid? Infected;
 
+    [ViewVariables]
+    public EntityUid? SourceMindId;
 }

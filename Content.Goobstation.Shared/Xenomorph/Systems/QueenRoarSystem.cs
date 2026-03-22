@@ -1,0 +1,87 @@
+using Content.Shared._White.Xenomorphs;
+using Content.Shared.Actions;
+using Content.Shared.DoAfter;
+using Content.Shared.NPC.Components;
+using Content.Shared.NPC.Systems;
+using Content.Shared.Popups;
+using Content.Shared.Stunnable;
+using Robust.Shared.Audio.Systems;
+using Robust.Shared.Player;
+
+namespace Content.Goobstation.Shared.Xenomorph;
+
+public sealed partial class QueenRoarSystem : EntitySystem
+{
+    [Dependency] private readonly SharedActionsSystem _actions = default!;
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedStunSystem _stun = default!;
+    [Dependency] private readonly NpcFactionSystem _faction = default!;
+    [Dependency] private readonly EntityLookupSystem _lookup = default!;
+    [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<QueenRoarComponent, MapInitEvent>(OnMapInit);
+        SubscribeLocalEvent<QueenRoarComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<QueenRoarComponent, QueenRoarActionEvent>(OnQueenRoar);
+        SubscribeLocalEvent<QueenRoarComponent, QueenRoarDoAfterEvent>(OnQueenRoarDoAfter);
+    }
+
+    private void OnMapInit(Entity<QueenRoarComponent> ent, ref MapInitEvent args) =>
+        _actions.AddAction(ent.Owner, ref ent.Comp.RoarActionEntity, ent.Comp.RoarAction);
+
+    private void OnShutdown(Entity<QueenRoarComponent> ent, ref ComponentShutdown args) =>
+        _actions.RemoveAction(ent.Owner, ent.Comp.RoarActionEntity);
+
+    private void OnQueenRoar(Entity<QueenRoarComponent> ent, ref QueenRoarActionEvent args)
+    {
+        if (args.Handled)
+            return;
+
+        _popup.PopupPredicted(
+            Loc.GetString("queen-roar-start"),
+            Loc.GetString("queen-roar-start-others"),
+            ent.Owner,
+            ent.Owner,
+            PopupType.LargeCaution);
+
+        var doAfter = new DoAfterArgs(EntityManager, args.Performer, ent.Comp.RoarDelay, new QueenRoarDoAfterEvent(), ent.Owner)
+        {
+            BreakOnMove = false,
+            BreakOnDamage = false,
+            NeedHand = false,
+            MultiplyDelay = false,
+        };
+
+        _doAfter.TryStartDoAfter(doAfter);
+        args.Handled = true;
+    }
+
+    private void OnQueenRoarDoAfter(Entity<QueenRoarComponent> ent, ref QueenRoarDoAfterEvent args)
+    {
+        if (args.Cancelled || args.Handled)
+            return;
+
+        _audio.PlayPredicted(ent.Comp.SoundRoar, ent.Owner, args.User);
+
+        var xform = Transform(ent.Owner);
+        var nearMobs = _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(xform.Coordinates, ent.Comp.RoarRange, LookupFlags.Uncontained);
+
+        foreach (var mob in nearMobs)
+        {
+            // Don't stun friendly entities
+            if (_faction.IsEntityFriendly(ent.Owner, (mob.Owner, mob.Comp)))
+                continue;
+
+            // Stun
+            _stun.KnockdownOrStun(mob, TimeSpan.FromSeconds(ent.Comp.RoarStunTime));
+        }
+
+        _popup.PopupPredicted(Loc.GetString("queen-roar-complete"), ent.Owner, args.User, Filter.Entities(args.User), false, PopupType.MediumCaution);
+
+        args.Handled = true;
+    }
+}
