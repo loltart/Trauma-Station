@@ -119,6 +119,7 @@ using Content.Shared.Storage.Components;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Content.Shared.Whitelist;
+using Content.Goobstation.Common.BlockHandsOnBuckle; // Trauma
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
@@ -174,6 +175,12 @@ public abstract partial class SharedBuckleSystem
         // Prevent people pulling the chair they're on, etc.
         if (ent.Comp.BuckledTo == args.Pulled && !ent.Comp.PullStrap)
             args.Cancel();
+
+        // Trauma start - Don't allow pulling if you're buckled to something that has the BlockHandsOnBuckleComponent. Mainly for species like lizards.
+        if (ent.Comp.BuckledTo != null
+            && HasComp<BlockHandsOnBuckleComponent>(ent.Comp.BuckledTo.Value))
+            args.Cancel();
+        // Trauma End
     }
 
     private void OnBeingPulledAttempt(Entity<BuckleComponent> ent, ref BeingPulledAttemptEvent args)

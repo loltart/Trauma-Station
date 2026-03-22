@@ -9,7 +9,6 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Interaction.Events;
-using Content.Shared.Pulling.Events;
 
 namespace Content.Goobstation.Server.BlockHandsOnBuckle;
 
@@ -26,7 +25,6 @@ public sealed class BlockHandsOnBuckleSystem : EntitySystem
         SubscribeLocalEvent<BlockHandsOnBuckleComponent, UnstrappedEvent>(OnUnstrapped);
 
         SubscribeLocalEvent<BuckleComponent, AttackAttemptEvent>(OnCanAttack);
-        SubscribeLocalEvent<BuckleComponent, StartPullAttemptEvent>(OnPullAttempt);
     }
 
     private void OnBuckled(Entity<BlockHandsOnBuckleComponent> ent, ref StrappedEvent args)
@@ -56,10 +54,4 @@ public sealed class BlockHandsOnBuckleSystem : EntitySystem
             args.Cancel();
     }
 
-    private void OnPullAttempt(EntityUid uid, BuckleComponent buckle, StartPullAttemptEvent args)
-    {
-        if (buckle.BuckledTo != null
-            && HasComp<BlockHandsOnBuckleComponent>(buckle.BuckledTo.Value))
-            args.Cancel();
     }
-}
