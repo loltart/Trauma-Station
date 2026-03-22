@@ -24,15 +24,11 @@ public sealed class SharedFaceHuggerLeapSystem : EntitySystem
         SubscribeLocalEvent<FaceHuggerLeapComponent, FaceHuggerLeapActionEvent>(OnLeapAction);
     }
 
-    private void OnMapInit(EntityUid uid, FaceHuggerLeapComponent component, MapInitEvent args)
-    {
+    private void OnMapInit(EntityUid uid, FaceHuggerLeapComponent component, MapInitEvent args) =>
         _actions.AddAction(uid, ref component.LeapActionEntity, component.LeapAction);
-    }
 
-    private void OnShutdown(EntityUid uid, FaceHuggerLeapComponent component, ComponentShutdown args)
-    {
+    private void OnShutdown(EntityUid uid, FaceHuggerLeapComponent component, ComponentShutdown args) =>
         _actions.RemoveAction(uid, component.LeapActionEntity);
-    }
 
     private void OnLeapAction(EntityUid uid, FaceHuggerLeapComponent component, FaceHuggerLeapActionEvent args)
     {
