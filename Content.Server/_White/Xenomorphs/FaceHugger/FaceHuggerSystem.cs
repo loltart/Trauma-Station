@@ -36,7 +36,6 @@ using Content.Shared.Atmos.Components;
 using Content.Server.Nutrition.EntitySystems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Mind.Components;
-using Content.Server.Actions;
 using Content.Server.Mind;
 using Content.Server._White.Xenomorphs.Infection;
 
@@ -60,7 +59,6 @@ public sealed class FaceHuggerSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
     [Dependency] private readonly MindSystem _mind = default!;
 
     private HashSet<Entity<InventoryComponent>> _targets = new();
