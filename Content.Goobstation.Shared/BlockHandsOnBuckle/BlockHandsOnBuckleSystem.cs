@@ -47,16 +47,16 @@ public sealed class BlockHandsOnBuckleSystem : EntitySystem
 
     private void OnInteractionAttempt(EntityUid uid, BuckleComponent buckle, ref InteractionAttemptEvent args)
     {
-        if (buckle.BuckledTo != null
-            && HasComp<BlockHandsOnBuckleComponent>(buckle.BuckledTo.Value)
+        if (buckle.BuckledTo is { } buckled
+            && HasComp<BlockHandsOnBuckleComponent>(buckled)
             && args.Target != null)
             args.Cancelled = true;
     }
 
     private void OnCanAttack(EntityUid uid, BuckleComponent buckle, ref AttackAttemptEvent args)
     {
-        if (buckle.BuckledTo != null
-            && HasComp<BlockHandsOnBuckleComponent>(buckle.BuckledTo.Value))
+        if (buckle.BuckledTo is { } buckled
+            && HasComp<BlockHandsOnBuckleComponent>(buckled))
             args.Cancel();
     }
 

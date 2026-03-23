@@ -46,7 +46,7 @@ public sealed class XenomorphLarvaSystem : EntitySystem
     private void OnMindAdded(EntityUid uid, XenomorphLarvaComponent component, MindAddedMessage args)
     {
         if (component.Victim.HasValue
-            && _container.TryGetContainingContainer((uid, null, null), out _))
+            && _container.TryGetContainingContainer(uid, out _))
             StartBurst(uid, component);
     }
 
