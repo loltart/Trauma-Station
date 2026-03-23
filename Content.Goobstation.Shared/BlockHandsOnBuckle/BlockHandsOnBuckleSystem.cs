@@ -7,7 +7,7 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Interaction.Events;
 
-namespace Content.Goobstation.Server.BlockHandsOnBuckle;
+namespace Content.Goobstation.Shared.BlockHandsOnBuckle;
 
 public sealed class BlockHandsOnBuckleSystem : EntitySystem
 {

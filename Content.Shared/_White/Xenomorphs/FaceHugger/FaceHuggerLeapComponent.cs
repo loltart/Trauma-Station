@@ -10,7 +10,7 @@ namespace Content.Shared._White.Xenomorphs.FaceHugger;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class FaceHuggerLeapComponent : Component
 {
-    [ViewVariables]
+    [DataField]
     public EntityUid? LeapActionEntity;
 
     [DataField]

@@ -4,7 +4,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
-namespace Content.Goobstation.Shared.Xenomorph;
+namespace Content.Trauma.Shared.Xenomorph;
 
 /// <summary>
 /// Allows the xenomorph queen to roar and stun nearby enemies

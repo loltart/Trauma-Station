@@ -9,7 +9,7 @@ using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 using Robust.Shared.Audio.Systems;
 
-namespace Content.Goobstation.Shared.Xenomorph;
+namespace Content.Trauma.Shared.Xenomorph;
 
 public sealed partial class QueenRoarSystem : EntitySystem
 {
@@ -33,8 +33,11 @@ public sealed partial class QueenRoarSystem : EntitySystem
         SubscribeLocalEvent<QueenRoarComponent, QueenRoarDoAfterEvent>(OnQueenRoarDoAfter);
     }
 
-    private void OnMapInit(Entity<QueenRoarComponent> ent, ref MapInitEvent args) =>
+    private void OnMapInit(Entity<QueenRoarComponent> ent, ref MapInitEvent args)
+    {
         _actions.AddAction(ent.Owner, ref ent.Comp.RoarActionEntity, ent.Comp.RoarAction);
+        Dirty(ent);
+    }
 
     private void OnShutdown(Entity<QueenRoarComponent> ent, ref ComponentShutdown args) =>
         _actions.RemoveAction(ent.Owner, ent.Comp.RoarActionEntity);

@@ -2,7 +2,7 @@
 
 using Robust.Shared.GameStates;
 
-namespace Content.Goobstation.Shared.Xenomorph;
+namespace Content.Trauma.Shared.Xenomorph;
 
 /// <summary>
 /// Handles the acid spit gun action
