@@ -1,6 +1,6 @@
 using Robust.Shared.GameStates;
 
-namespace Content.Shared._White.Xenomorphs.FaceHugger;
+namespace Content.Trauma.Shared.Xenomorph;
 
 [RegisterComponent, NetworkedComponent]
 public sealed partial class LarvaInfestationVisionComponent : Component;

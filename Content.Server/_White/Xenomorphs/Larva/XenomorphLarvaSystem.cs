@@ -7,11 +7,11 @@ using Content.Shared._White.Xenomorphs.Larva;
 using Content.Shared.DoAfter;
 using Content.Shared.Gibbing;
 using Content.Shared.IdentityManagement;
+using Content.Shared.Mind.Components;
 using Content.Shared.Popups;
 using Robust.Server.Containers;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
-using Content.Shared.Mind.Components;
 
 namespace Content.Server._White.Xenomorphs.Larva;
 
@@ -47,9 +47,7 @@ public sealed class XenomorphLarvaSystem : EntitySystem
     {
         if (component.Victim.HasValue
             && _container.TryGetContainingContainer((uid, null, null), out _))
-        {
             StartBurst(uid, component);
-        }
     }
 
     private void StartBurst(EntityUid uid, XenomorphLarvaComponent component)

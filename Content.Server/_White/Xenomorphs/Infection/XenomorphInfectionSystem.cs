@@ -8,7 +8,6 @@ using Content.Shared.Mind;
 using Robust.Server.Containers;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Server.Mind;
 
 namespace Content.Server._White.Xenomorphs.Infection;
 
@@ -20,7 +19,7 @@ public sealed class XenomorphInfectionSystem : EntitySystem
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedEntityEffectsSystem _effects = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
+    [Dependency] private readonly SharedMindSystem _mind = default!;
 
     public override void Initialize()
     {

@@ -258,6 +258,10 @@
     category: NeurotoxinGland
   - type: ChildOrgan
     parents: [ Head ]
+  - type: NeurotoxinGland
+  - type: OrganActions
+    actions:
+    - ActionAcidSpit
   - type: OrganComponents
     onAdd:
     - type: RechargeBasicEntityAmmo
@@ -272,7 +276,6 @@
       availableModes:
       - FullAuto
       soundGunshot: /Audio/Weapons/Xeno/alien_spitacid.ogg
-    - type: NeurotoxinGland
 
 - type: entity
   parent: [ OrganBaseInternal, OrganXenomorphInternal ]

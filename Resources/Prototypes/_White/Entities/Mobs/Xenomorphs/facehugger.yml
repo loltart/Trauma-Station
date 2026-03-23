@@ -147,6 +147,16 @@
 #    - XenoHivemind # Trauma
     - Hissing
     - Draconic
+  - type: Speech
+    speechSounds: Xenomorph
+    speechVerb: SmallMob
+  - type: ReplacementAccent
+    accent: xeno
+  - type: Vocal
+    sounds:
+      Male: Xenomorph
+      Female: Xenomorph
+      Unsexed: Xenomorph
   - type: CollectiveMind # Trauma
     defaultChannel: Xenomorphivemind
     channels:
@@ -174,7 +184,6 @@
     proto: alien
   - type: ZombieImmune
   - type: NoSlip
-  - type: Muted
   - type: ShowHealthIcons
   - type: VentCrawler
   - type: Pinpointer

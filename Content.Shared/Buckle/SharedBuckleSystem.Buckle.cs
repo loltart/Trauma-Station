@@ -177,8 +177,8 @@ public abstract partial class SharedBuckleSystem
             args.Cancel();
 
         // Trauma start - Don't allow pulling if you're buckled to something that has the BlockHandsOnBuckleComponent. Mainly for species like lizards.
-        if (ent.Comp.BuckledTo != null
-            && HasComp<BlockHandsOnBuckleComponent>(ent.Comp.BuckledTo.Value))
+        if (ent.Comp.BuckledTo is { } buckled
+            && HasComp<BlockHandsOnBuckleComponent>(buckled))
             args.Cancel();
         // Trauma End
     }

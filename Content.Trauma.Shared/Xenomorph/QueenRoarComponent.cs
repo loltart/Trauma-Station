@@ -34,6 +34,13 @@ public sealed partial class QueenRoarComponent : Component
         .WithMaxDistance(15f),
     };
 
+    [DataField]
+    public SoundSpecifier? SoundRoarStart = new SoundPathSpecifier("/Audio/_Trauma/Effects/queenroarstart.ogg")
+    {
+        Params = AudioParams.Default.WithVolume(12f)
+    .WithMaxDistance(15f),
+    };
+
     /// <summary>
     /// Range of the roar effect in tiles
     /// </summary>

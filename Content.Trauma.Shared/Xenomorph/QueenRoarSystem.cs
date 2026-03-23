@@ -8,7 +8,6 @@ using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Stunnable;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Player;
 
 namespace Content.Goobstation.Shared.Xenomorph;
 
@@ -22,12 +21,14 @@ public sealed partial class QueenRoarSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
 
+    private readonly HashSet<Entity<NpcFactionMemberComponent>> _nearbyMobs = new();
+
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<QueenRoarComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<QueenRoarComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<QueenRoarComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<QueenRoarComponent, QueenRoarActionEvent>(OnQueenRoar);
         SubscribeLocalEvent<QueenRoarComponent, QueenRoarDoAfterEvent>(OnQueenRoarDoAfter);
     }
@@ -50,6 +51,8 @@ public sealed partial class QueenRoarSystem : EntitySystem
             ent.Owner,
             PopupType.LargeCaution);
 
+        _audio.PlayPredicted(ent.Comp.SoundRoarStart, ent.Owner, args.Performer);
+
         var doAfter = new DoAfterArgs(EntityManager, args.Performer, ent.Comp.RoarDelay, new QueenRoarDoAfterEvent(), ent.Owner)
         {
             BreakOnMove = false,
@@ -70,9 +73,10 @@ public sealed partial class QueenRoarSystem : EntitySystem
         _audio.PlayPredicted(ent.Comp.SoundRoar, ent.Owner, args.User);
 
         var xform = Transform(ent.Owner);
-        var nearMobs = _lookup.GetEntitiesInRange<NpcFactionMemberComponent>(xform.Coordinates, ent.Comp.RoarRange, LookupFlags.Uncontained);
+        _nearbyMobs.Clear();
+        _lookup.GetEntitiesInRange(xform.Coordinates, ent.Comp.RoarRange, _nearbyMobs, LookupFlags.Uncontained);
 
-        foreach (var mob in nearMobs)
+        foreach (var mob in _nearbyMobs)
         {
             // Don't stun friendly entities
             if (_faction.IsEntityFriendly(ent.Owner, (mob.Owner, mob.Comp)))
@@ -82,7 +86,7 @@ public sealed partial class QueenRoarSystem : EntitySystem
             _stun.KnockdownOrStun(mob, TimeSpan.FromSeconds(ent.Comp.RoarStunTime));
         }
 
-        _popup.PopupPredicted(Loc.GetString("queen-roar-complete"), ent.Owner, args.User, Filter.Entities(args.User), false, PopupType.MediumCaution);
+        _popup.PopupPredicted(Loc.GetString("queen-roar-complete"), ent.Owner, args.User, PopupType.MediumCaution);
 
         args.Handled = true;
     }

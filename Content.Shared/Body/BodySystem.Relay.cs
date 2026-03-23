@@ -2,6 +2,7 @@ using Content.Shared.Body.Events;
 using Content.Shared.Gibbing;
 using Content.Shared.Humanoid;
 using Content.Shared.Medical;
+using Content.Shared.Weapons.Ranged.Events; // Trauma
 using JetBrains.Annotations;
 
 namespace Content.Shared.Body;
@@ -18,6 +19,7 @@ public sealed partial class BodySystem
         SubscribeLocalEvent<BodyComponent, ApplyOrganMarkingsEvent>(RefRelayBodyEvent);
         SubscribeLocalEvent<BodyComponent, OrganCopyAppearanceEvent>(RefRelayBodyEvent);
         SubscribeLocalEvent<BodyComponent, HumanoidLayerVisibilityChangedEvent>(RefRelayBodyEvent);
+        SubscribeLocalEvent<BodyComponent, ShotAttemptedEvent>(RefRelayBodyEvent); // Trauma
     }
 
     public void RefRelayBodyEvent<T>(EntityUid uid, BodyComponent component, ref T args) where T : struct // Trauma - made public jfc

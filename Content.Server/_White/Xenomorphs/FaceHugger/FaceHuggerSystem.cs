@@ -262,8 +262,7 @@ public sealed class FaceHuggerSystem : EntitySystem
             return;
         }
 
-        if (IsSentient(uid)
-            && _mind.TryGetMind(uid, out var mindId, out var mindComp)
+        if (_mind.TryGetMind(uid, out var mindId, out var mindComp)
             && TryComp<XenomorphInfectionComponent>(organ, out var xenoInfection))
         {
             xenoInfection.SourceMindId = mindId;
