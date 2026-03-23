@@ -5231,3 +5231,10 @@ Entries:
   id: 616
   time: '2026-03-22T21:55:22.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1531
+- author: GoidaYAMLWarrior
+  changes:
+  - type: Tweak
+    message: made billy club 1x3 in inventory to parity other batongs
+  id: 617
+  time: '2026-03-23T06:07:03.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1532
