@@ -5345,3 +5345,10 @@ Entries:
   id: 627
   time: '2026-03-24T18:10:46.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1556
+- author: GamingFungus420
+  changes:
+  - type: Tweak
+    message: Increased flour bag and pack capacity
+  id: 628
+  time: '2026-03-24T19:41:45.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1553
