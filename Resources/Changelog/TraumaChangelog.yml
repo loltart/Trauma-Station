@@ -5505,3 +5505,10 @@ Entries:
   id: 646
   time: '2026-03-26T16:50:58.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1601
+- author: deltanedas
+  changes:
+  - type: Tweak
+    message: Goliaths no longer stun you, they only knock you down.
+  id: 647
+  time: '2026-03-26T20:10:57.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1605
