@@ -44,7 +44,6 @@ public sealed class SandevistanSystem : EntitySystem
     [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     private const string SlowfieldFixtureId = "sandevistan-slowfield";
 
