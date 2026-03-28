@@ -18,33 +18,33 @@ public sealed partial class SandevistanSlowedComponent : Component
     /// Whether this entity is a mob.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsMob { get; set; }
+    public bool IsMob;
 
     /// <summary>
     /// Whether this entity is a thrown item.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsThrown { get; set; }
+    public bool IsThrown;
 
     /// <summary>
     /// Whether this entity is a projectile (bullet).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsProjectile { get; set; }
+    public bool IsProjectile;
 
     [DataField, AutoNetworkedField]
-    public float SpeedMultiplier { get; set; } = 1f;
+    public float SpeedMultiplier = 1f;
 
     [DataField, AutoNetworkedField]
-    public Vector2 OriginalLinearVelocity { get; set; }
+    public Vector2 OriginalLinearVelocity;
 
     /// <summary>
     /// Whether this entity is currently actively slowed.
     /// False means the slowdown was removed but the component is pending cleanup.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsSlowed { get; set; } = true;
+    public bool IsSlowed = true;
 
     [DataField, AutoNetworkedField]
-    public bool HadDogVision { get; set; }
+    public bool HadDogVision;
 }

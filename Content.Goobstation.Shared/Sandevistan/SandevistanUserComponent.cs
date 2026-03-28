@@ -6,6 +6,7 @@ using Content.Shared.Damage;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 // Ideally speaking this should be on the heart itself... but this also works.
 namespace Content.Goobstation.Shared.Sandevistan;
@@ -14,7 +15,7 @@ namespace Content.Goobstation.Shared.Sandevistan;
 public sealed partial class SandevistanUserComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public bool Active { get; set; }
+    public bool Active;
 
     [DataField, AutoNetworkedField]
     public TimeSpan LastEnabled = TimeSpan.Zero;
@@ -25,10 +26,10 @@ public sealed partial class SandevistanUserComponent : Component
     [DataField]
     public TimeSpan PopupDelay = TimeSpan.FromSeconds(3);
 
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
     public TimeSpan NextPopupTime = TimeSpan.Zero;
 
-    [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public float CurrentLoad = 0f; // Only updated when enabled
 
     [DataField]
@@ -71,31 +72,31 @@ public sealed partial class SandevistanUserComponent : Component
     public float AttackSpeedModifier = 2f;
 
     [DataField, AutoNetworkedField]
-    public bool DoAfterSpeedEnabled { get; set; } = true;
+    public bool DoAfterSpeedEnabled = true;
 
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public int ColorAccumulator { get; set; } = 0;
+    public int ColorAccumulator = 0;
 
     [DataField]
-    public float AfterimageInterval { get; set; } = 0.08f;
+    public float AfterimageInterval = 0.08f;
 
-    [DataField, AutoNetworkedField]
-    public TimeSpan NextAfterimageTime { get; set; } = TimeSpan.Zero;
-
-    [ViewVariables(VVAccess.ReadOnly)]
-    public EntityUid? PlayingStream { get; set; }
+    [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoNetworkedField]
+    public TimeSpan NextAfterimageTime = TimeSpan.Zero;
 
     [DataField]
-    public SoundSpecifier? StartSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_start.ogg");
+    public EntityUid? PlayingStream;
 
     [DataField]
-    public SoundSpecifier? EndSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_end.ogg");
+    public SoundSpecifier? StartSound = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_start.ogg");
 
     [DataField]
-    public SoundSpecifier? OverloadSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_overload.ogg");
+    public SoundSpecifier? EndSound = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_end.ogg");
 
     [DataField]
-    public SoundSpecifier? LoopSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_loop.ogg")
+    public SoundSpecifier? OverloadSound = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_overload.ogg");
+
+    [DataField]
+    public SoundSpecifier? LoopSound = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_loop.ogg")
     {
         Params = new AudioParams
         {
@@ -104,7 +105,7 @@ public sealed partial class SandevistanUserComponent : Component
     };
 
     [DataField]
-    public float LoopSoundDelay { get; set; } = 2.5f;
+    public float LoopSoundDelay = 2.5f;
 
     /// <summary>
     /// Alert prototype shown when the sandevistan is active, displaying current load.
@@ -119,31 +120,31 @@ public sealed partial class SandevistanUserComponent : Component
     /// The slowfield, as the name suggests, slows thing that are nearby similarly to how it works in the show / game.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool SlowfieldEnabled { get; set; } = false;
+    public bool SlowfieldEnabled = false;
 
     /// <summary>
     /// how many tiles to affect.
     /// </summary>
     [DataField]
-    public float SlowfieldRadius { get; set; } = 7f;
+    public float SlowfieldRadius = 7f;
 
     /// <summary>
     /// Speed multiplier for mobs in the slowfield.
     /// </summary>
     [DataField]
-    public float MobSpeedMultiplier { get; set; } = 0.15f;
+    public float MobSpeedMultiplier = 0.15f;
 
     /// <summary>
     /// Speed multiplier for thrown items in the slowfield.
     /// </summary>
     [DataField]
-    public float ThrownItemSpeedMultiplier { get; set; } = 0.05f;
+    public float ThrownItemSpeedMultiplier = 0.05f;
 
     /// <summary>
     /// Speed multiplier for projectiles in the slowfield.
     /// </summary>
     [DataField]
-    public float ProjectileSpeedMultiplier { get; set; } = 0.05f;
+    public float ProjectileSpeedMultiplier = 0.05f;
 
     #endregion
 }
