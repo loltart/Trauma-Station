@@ -267,8 +267,7 @@ public sealed class SandevistanSystem : EntitySystem
         DeleteAfterimages(uid);
         StopLoopedAudio(comp);
 
-        if (HasComp<DogVisionComponent>(uid))
-            RemCompDeferred<DogVisionComponent>(uid);
+        RemCompDeferred<DogVisionComponent>(uid);
 
         if (wasActive)
             Dirty(uid, comp);
