@@ -5592,3 +5592,10 @@ Entries:
   id: 657
   time: '2026-03-28T02:16:43.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1233
+- author: deltanedas
+  changes:
+  - type: Tweak
+    message: The blob mouse transform into blob action now has a confirmation step.
+  id: 658
+  time: '2026-03-28T10:56:08.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1632
