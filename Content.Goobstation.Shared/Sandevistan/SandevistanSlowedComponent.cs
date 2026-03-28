@@ -12,25 +12,25 @@ namespace Content.Goobstation.Shared.Sandevistan;
 public sealed partial class SandevistanSlowedComponent : Component
 {
     [DataField, AutoNetworkedField]
-    public EntityUid Source { get; set; }
+    public EntityUid Source;
 
     /// <summary>
     /// Whether this entity is a mob.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsMob { get; set; } = false;
+    public bool IsMob { get; set; }
 
     /// <summary>
     /// Whether this entity is a thrown item.
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsThrown { get; set; } = false;
+    public bool IsThrown { get; set; }
 
     /// <summary>
     /// Whether this entity is a projectile (bullet).
     /// </summary>
     [DataField, AutoNetworkedField]
-    public bool IsProjectile { get; set; } = false;
+    public bool IsProjectile { get; set; }
 
     [DataField, AutoNetworkedField]
     public float SpeedMultiplier { get; set; } = 1f;
@@ -46,5 +46,5 @@ public sealed partial class SandevistanSlowedComponent : Component
     public bool IsSlowed { get; set; } = true;
 
     [DataField, AutoNetworkedField]
-    public bool HadDogVision { get; set; } = false;
+    public bool HadDogVision { get; set; }
 }

@@ -9,10 +9,10 @@ namespace Content.Trauma.Client.Sandevistan;
 
 public sealed class SandevistanGlitchSystem : EntitySystem
 {
-    private SandevistanGlitchOverlay _overlay = default!;
+    private SandevistanGlitchOverlay _proto = default!;
 
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IOverlayManager _overlayManager = default!;
+    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IOverlayManager _overlayMan = default!;
 
     public override void Initialize()
     {
@@ -24,28 +24,28 @@ public sealed class SandevistanGlitchSystem : EntitySystem
         SubscribeLocalEvent<SandevistanGlitchComponent, LocalPlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<SandevistanGlitchComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
 
-        _overlay = new();
+        _proto = new();
     }
 
     private void OnPlayerAttached(Entity<SandevistanGlitchComponent> ent, ref LocalPlayerAttachedEvent args) =>
-        _overlayManager.AddOverlay(_overlay);
+        _overlayMan.AddOverlay(_proto);
 
     private void OnPlayerDetached(Entity<SandevistanGlitchComponent> ent, ref LocalPlayerDetachedEvent args) =>
-        _overlayManager.RemoveOverlay(_overlay);
+        _overlayMan.RemoveOverlay(_proto);
 
     private void OnInit(Entity<SandevistanGlitchComponent> ent, ref ComponentInit args)
     {
-        if (_playerManager.LocalEntity != ent.Owner)
+        if (_player.LocalEntity != ent.Owner)
             return;
 
-        _overlayManager.AddOverlay(_overlay);
+        _overlayMan.AddOverlay(_proto);
     }
 
     private void OnShutdown(Entity<SandevistanGlitchComponent> ent, ref ComponentShutdown args)
     {
-        if (_playerManager.LocalEntity != ent.Owner)
+        if (_player.LocalEntity != ent.Owner)
             return;
 
-        _overlayManager.RemoveOverlay(_overlay);
+        _overlayMan.RemoveOverlay(_proto);
     }
 }

@@ -77,7 +77,17 @@ public sealed class SandevistanSystem : EntitySystem
         while (cleanupQuery.MoveNext(out var target, out var slowed))
         {
             if (!slowed.IsSlowed)
-                RemComp<SandevistanSlowedComponent>(target);
+                RemComp(target, slowed);
+        }
+
+        if (_netManager.IsServer)
+        {
+            var glitchQuery = EntityQueryEnumerator<SandevistanGlitchComponent>();
+            while (glitchQuery.MoveNext(out var glitchUid, out var glitchComp))
+            {
+                if (_timing.CurTime >= glitchComp.ExpiresAt)
+                    RemCompDeferred<SandevistanGlitchComponent>(glitchUid);
+            }
         }
 
         if (_netManager.IsServer)
@@ -96,10 +106,6 @@ public sealed class SandevistanSystem : EntitySystem
         var query = EntityQueryEnumerator<ActiveSandevistanUserComponent, SandevistanUserComponent>();
         while (query.MoveNext(out var uid, out _, out var comp))
         {
-            if (comp.DisableAt != null
-                && _timing.CurTime > comp.DisableAt)
-                Disable(uid, comp);
-
             UpdateAfterimages(uid, comp);
 
             if (_netManager.IsServer)
@@ -118,13 +124,9 @@ public sealed class SandevistanSystem : EntitySystem
                 {
                     if (_netManager.IsServer)
                     {
-                        EnsureComp<SandevistanGlitchComponent>(uid);
-                        var glitchUid = uid;
-                        Timer.Spawn(TimeSpan.FromSeconds(3), () =>
-                        {
-                            if (!Deleted(glitchUid))
-                                RemComp<SandevistanGlitchComponent>(glitchUid);
-                        });
+                        var glitchComp = EnsureComp<SandevistanGlitchComponent>(uid);
+                        glitchComp.ExpiresAt = _timing.CurTime + TimeSpan.FromSeconds(3);
+                        Dirty(uid, glitchComp);
                     }
                     _audio.PlayPredicted(comp.OverloadSound, uid, null);
                     Disable(uid, comp);
@@ -193,8 +195,7 @@ public sealed class SandevistanSystem : EntitySystem
 
         _speed.RefreshMovementSpeedModifiers(ent);
 
-        if (!HasComp<DogVisionComponent>(ent))
-            AddComp<DogVisionComponent>(ent);
+        EnsureComp<DogVisionComponent>(ent);
 
         if (ent.Comp.SlowfieldEnabled)
             CreateSlowfieldFixture(ent, ent.Comp);
@@ -310,24 +311,15 @@ public sealed class SandevistanSystem : EntitySystem
     /// </summary>
     public void DeleteAfterimages(EntityUid sourceUid)
     {
-        Timer.Spawn(TimeSpan.FromSeconds(1f), () =>
+        var query = EntityQueryEnumerator<SandevistanAfterimageComponent>();
+        while (query.MoveNext(out var afterimageUid, out var afterimageComp))
         {
-            if (Deleted(sourceUid))
-                return;
+            if (afterimageComp.SourceEntity != sourceUid)
+                continue;
 
-            var query = EntityQueryEnumerator<SandevistanAfterimageComponent>();
-            while (query.MoveNext(out var afterimageUid, out var afterimageComp))
-            {
-                if (afterimageComp.SourceEntity != sourceUid)
-                    continue;
-
-                if (!HasComp<TimedDespawnComponent>(afterimageUid))
-                {
-                    var despawn = EnsureComp<TimedDespawnComponent>(afterimageUid);
-                    despawn.Lifetime = 2f;
-                }
-            }
-        });
+            var despawn = EnsureComp<TimedDespawnComponent>(afterimageUid);
+            despawn.Lifetime = 3f;
+        }
     }
 
     #endregion
@@ -343,9 +335,9 @@ public sealed class SandevistanSystem : EntitySystem
 
         Timer.Spawn(TimeSpan.FromSeconds(comp.LoopSoundDelay), () =>
         {
-            if (!Deleted(uid) && comp.Active && comp.PlayingStream == null && !_mobState.IsIncapacitated(uid))
+            if (!Deleted(uid) && comp.Active && comp.PlayingStream == null)
             {
-                var stream = _audio.PlayPvs(comp.LoopSound, uid, comp.LoopSound.Params.WithLoop(true));
+                var stream = _audio.PlayPvs(comp.LoopSound, uid);
                 if (stream?.Entity is { } entity)
                     comp.PlayingStream = entity;
             }
@@ -359,7 +351,7 @@ public sealed class SandevistanSystem : EntitySystem
     {
         if (comp.PlayingStream != null)
         {
-            QueueDel(comp.PlayingStream);
+            _audio.Stop(comp.PlayingStream);
             comp.PlayingStream = null;
         }
     }

@@ -13,19 +13,16 @@ namespace Content.Goobstation.Shared.Sandevistan;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class SandevistanUserComponent : Component
 {
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public bool Active { get; set; }
 
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
-    public TimeSpan? DisableAt;
-
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public TimeSpan LastEnabled = TimeSpan.Zero;
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public TimeSpan StatusEffectTime = TimeSpan.FromSeconds(5);
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public TimeSpan PopupDelay = TimeSpan.FromSeconds(3);
 
     [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
@@ -34,10 +31,10 @@ public sealed partial class SandevistanUserComponent : Component
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public float CurrentLoad = 0f; // Only updated when enabled
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float LoadPerActiveSecond = 1f;
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float LoadPerInactiveSecond = -0.25f;
 
     [DataField, AutoNetworkedField]
@@ -52,13 +49,13 @@ public sealed partial class SandevistanUserComponent : Component
     /// <summary>
     /// How long the toggle action is disabled after an overload (Disable state).
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public TimeSpan DisableCooldown = TimeSpan.FromSeconds(4);
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float StaminaDamage = 5f;
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public DamageSpecifier Damage = new()
     {
         DamageDict = new()
@@ -79,25 +76,25 @@ public sealed partial class SandevistanUserComponent : Component
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public int ColorAccumulator { get; set; } = 0;
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float AfterimageInterval { get; set; } = 0.08f;
 
-    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public TimeSpan NextAfterimageTime { get; set; } = TimeSpan.Zero;
 
-    [DataField, AutoNetworkedField]
+    [ViewVariables(VVAccess.ReadOnly)]
     public EntityUid? PlayingStream { get; set; }
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public SoundSpecifier? StartSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_start.ogg");
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public SoundSpecifier? EndSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_end.ogg");
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public SoundSpecifier? OverloadSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_overload.ogg");
 
-    [DataField, AutoNetworkedField]
+    [DataField]
     public SoundSpecifier? LoopSound { get; set; } = new SoundPathSpecifier("/Audio/_Trauma/Misc/sande_loop.ogg")
     {
         Params = new AudioParams
@@ -106,8 +103,8 @@ public sealed partial class SandevistanUserComponent : Component
         }
     };
 
-    [DataField, AutoNetworkedField]
-    public float LoopSoundDelay { get; set; } = 1.8f;
+    [DataField]
+    public float LoopSoundDelay { get; set; } = 2.5f;
 
     /// <summary>
     /// Alert prototype shown when the sandevistan is active, displaying current load.
@@ -127,25 +124,25 @@ public sealed partial class SandevistanUserComponent : Component
     /// <summary>
     /// how many tiles to affect.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float SlowfieldRadius { get; set; } = 7f;
 
     /// <summary>
     /// Speed multiplier for mobs in the slowfield.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float MobSpeedMultiplier { get; set; } = 0.15f;
 
     /// <summary>
     /// Speed multiplier for thrown items in the slowfield.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float ThrownItemSpeedMultiplier { get; set; } = 0.05f;
 
     /// <summary>
     /// Speed multiplier for projectiles in the slowfield.
     /// </summary>
-    [DataField, AutoNetworkedField]
+    [DataField]
     public float ProjectileSpeedMultiplier { get; set; } = 0.05f;
 
     #endregion

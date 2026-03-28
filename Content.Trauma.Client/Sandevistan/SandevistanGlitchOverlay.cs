@@ -11,9 +11,9 @@ public sealed class SandevistanGlitchOverlay : Overlay
 {
     private static readonly ProtoId<ShaderPrototype> Shader = "SandevistanGlitch";
 
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-    [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IEntityManager _entityManager = default!;
+    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IEntityManager _entMan = default!;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -24,12 +24,12 @@ public sealed class SandevistanGlitchOverlay : Overlay
     public SandevistanGlitchOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _glitchShader = _prototypeManager.Index(Shader).InstanceUnique();
+        _glitchShader = _proto.Index(Shader).InstanceUnique();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        if (!_entityManager.TryGetComponent(_playerManager.LocalEntity, out EyeComponent? eyeComp))
+        if (!_entMan.TryGetComponent(_player.LocalEntity, out EyeComponent? eyeComp))
             return false;
 
         if (args.Viewport.Eye != eyeComp.Eye)

@@ -5,4 +5,8 @@ using Robust.Shared.GameStates;
 namespace Content.Goobstation.Shared.Sandevistan;
 
 [RegisterComponent, NetworkedComponent]
-public sealed partial class SandevistanGlitchComponent : Component;
+public sealed partial class SandevistanGlitchComponent : Component
+{
+    [DataField]
+    public TimeSpan ExpiresAt;
+}
