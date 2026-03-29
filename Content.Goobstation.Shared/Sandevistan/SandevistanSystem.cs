@@ -310,15 +310,19 @@ public sealed class SandevistanSystem : EntitySystem
     /// </summary>
     public void DeleteAfterimages(EntityUid sourceUid)
     {
-        var query = EntityQueryEnumerator<SandevistanAfterimageComponent>();
-        while (query.MoveNext(out var afterimageUid, out var afterimageComp))
+        // Sometimes it doesn't capture the last afterimage. This just makes sure the timing isn't off.
+        Timer.Spawn(TimeSpan.FromSeconds(1), () =>
         {
-            if (afterimageComp.SourceEntity != sourceUid)
-                continue;
+            var query = EntityQueryEnumerator<SandevistanAfterimageComponent>();
+            while (query.MoveNext(out var afterimageUid, out var afterimageComp))
+            {
+                if (afterimageComp.SourceEntity != sourceUid)
+                    continue;
 
-            var despawn = EnsureComp<TimedDespawnComponent>(afterimageUid);
-            despawn.Lifetime = 3f;
-        }
+                var despawn = EnsureComp<TimedDespawnComponent>(afterimageUid);
+                despawn.Lifetime = 3f;
+            }
+        });
     }
 
     #endregion
