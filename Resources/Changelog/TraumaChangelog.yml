@@ -5845,3 +5845,14 @@ Entries:
   id: 688
   time: '2026-03-30T10:36:52.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1711
+- author: deltanedas
+  changes:
+  - type: Tweak
+    message: >-
+      You can no longer take items out of bags that you aren't wearing or
+      holding, or some other more niche interactions where you are not in the
+      same container as another thing, like buckling someone while you are
+      inside a locker.
+  id: 689
+  time: '2026-03-30T12:56:05.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1714
