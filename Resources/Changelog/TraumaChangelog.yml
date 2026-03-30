@@ -5831,3 +5831,10 @@ Entries:
   id: 686
   time: '2026-03-30T09:14:25.0000000+00:00'
   url: https://github.com/Trauma-Station/Trauma-Station/pull/1708
+- author: deltanedas
+  changes:
+  - type: Fix
+    message: Fixed not being able to make skull candles.
+  id: 687
+  time: '2026-03-30T10:14:28.0000000+00:00'
+  url: https://github.com/Trauma-Station/Trauma-Station/pull/1710
